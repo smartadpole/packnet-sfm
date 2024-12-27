@@ -11,7 +11,7 @@ from packnet_sfm.utils.types import is_seq
 
 ########################################################################################################################
 
-def resize_image(image, shape, interpolation=Image.ANTIALIAS):
+def resize_image(image, shape, interpolation=Image.Resampling.LANCZOS):
     """
     Resizes input image.
 
@@ -99,7 +99,7 @@ def resize_depth_preserve(depth, shape):
 
 
 def resize_sample_image_and_intrinsics(sample, shape,
-                                       image_interpolation=Image.ANTIALIAS):
+                                       image_interpolation=Image.LANCZOS):
     """
     Resizes the image and intrinsics of a sample
 
@@ -142,7 +142,7 @@ def resize_sample_image_and_intrinsics(sample, shape,
     # Return resized sample
     return sample
 
-def resize_sample(sample, shape, image_interpolation=Image.ANTIALIAS):
+def resize_sample(sample, shape, image_interpolation=Image.LANCZOS):
     """
     Resizes a sample, including image, intrinsics and depth maps.
 

@@ -7,6 +7,7 @@ import torch
 
 from glob import glob
 from cv2 import imwrite
+import time
 
 from packnet_sfm.models.model_wrapper import ModelWrapper
 from packnet_sfm.datasets.augmentations import resize_image, to_tensor
@@ -83,8 +84,11 @@ def infer_and_save_depth(input_file, output_file, model_wrapper, image_shape, ha
     if torch.cuda.is_available():
         image = image.to('cuda:{}'.format(rank()), dtype=dtype)
 
+    start_time = time.time()
     # Depth inference (returns predicted inverse depth)
     pred_inv_depth = model_wrapper.depth(image)['inv_depths'][0]
+    end_time = time.time()
+    print(f"Inference time: {(end_time - start_time) * 1000:.2f} ms")
 
     if save == 'npz' or save == 'png':
         # Get depth from predicted depth map and save to different formats
