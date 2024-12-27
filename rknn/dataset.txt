@@ -1,0 +1,7 @@
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_23.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_39.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_0.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_1.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_10.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_11.png
+/media/hao/CODE/RESULT/DDAD/RGB/pred_depth_12.png
