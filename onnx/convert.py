@@ -1,17 +1,9 @@
 import cv2
-import torch
 import numpy as np
 import os
 import time
 import argparse
-
-from open3d.cuda.pybind.core import concatenate
-
-from tools.file import MkdirSimple
-from tools.utils import print_onnx
-from packnet_sfm.models.model_wrapper import ModelWrapper
 from onnxmodel import ONNXModel
-from packnet_sfm.utils.config import parse_test_file
 import torch
 from packnet_sfm.utils.config import parse_test_file
 from packnet_sfm.utils.load import load_network
@@ -80,8 +72,7 @@ def export_to_onnx(model_path, onnx_file, width=W, height=H, device="cuda"):
                       do_constant_folding=True)
 
     print(f"Model exported to {onnx_file}")
-    print_onnx(onnx_file)
-
+    ONNXModel(onnx_file)
 
 def test_onnx(img_path, model, width=W, height=H, device="cuda"):
     img_org = cv2.imread(img_path)

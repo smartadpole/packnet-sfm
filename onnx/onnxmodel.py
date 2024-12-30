@@ -27,10 +27,32 @@ class ONNXModel():
         self.onnx_session = onnxruntime.InferenceSession(onnx_file, providers=['TensorrtExecutionProvider', 'CUDAExecutionProvider',
                                                            'CPUExecutionProvider'])
 
+        print(f"ONNX Runtime version: {onnxruntime.__version__}")
+        print(f"Device: {onnxruntime.get_device()}")
+        print(f"Available providers: {self.onnx_session.get_providers()}")
+
         self.input_name = self.get_input_name(self.onnx_session)
         self.output_name = self.get_output_name(self.onnx_session)
-        print("input_name:{}".format(self.input_name))
-        print("output_name:{}".format(self.output_name))
+        self.print_IO()
+
+    def print_IO(self,):
+        # 查看模型的输入信息
+        print("Model Inputs:")
+        for input in self.onnx_session.get_inputs():
+            print(f"Name: {input.name}")
+            print(f"Shape: {input.shape}")
+            print(f"Data Type: {input.type}")
+            print("-" * 50)
+            break
+
+        # 查看模型的输出信息
+        print("Model Outputs:")
+        for output in self.onnx_session.get_outputs():
+            print(f"Name: {output.name}")
+            print(f"Shape: {output.shape}")
+            print(f"Data Type: {output.type}")
+            print("-" * 50)
+            break
 
     def get_output_name(self, onnx_session):
         output_name = []
@@ -53,7 +75,6 @@ class ONNXModel():
     def forward(self, image:np.ndarray):
         input_feed = self.get_input_feed(self.input_name, image)
         scores = self.onnx_session.run(self.output_name, input_feed=input_feed)
-        print("device:", self.onnx_session.get_providers())
         return scores
 
 

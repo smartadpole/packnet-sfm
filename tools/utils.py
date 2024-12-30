@@ -1,7 +1,7 @@
 import time
 from functools import wraps
 
-__all__ = ['timeit', 'print_onnx']
+__all__ = ['timeit']
 
 # Decorator function to measure the time taken by a function
 def timeit(time_len):
@@ -20,29 +20,3 @@ def timeit(time_len):
         wrapper.times = []
         return wrapper
     return decorator
-
-
-
-def print_onnx(model):
-    import onnxruntime as ort
-
-    # 加载 ONNX 模型
-    session = ort.InferenceSession(model)
-
-    # 查看模型的输入信息
-    print("Model Inputs:")
-    for input in session.get_inputs():
-        print(f"Name: {input.name}")
-        print(f"Shape: {input.shape}")
-        print(f"Data Type: {input.type}")
-        print("-" * 50)
-        break
-
-    # 查看模型的输出信息
-    print("Model Outputs:")
-    for output in session.get_outputs():
-        print(f"Name: {output.name}")
-        print(f"Shape: {output.shape}")
-        print(f"Data Type: {output.type}")
-        print("-" * 50)
-        break
