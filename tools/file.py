@@ -10,7 +10,7 @@
 import os
 import re
 
-__all__ = ["FILE_SUFFIX", "Walk", "MkdirSimple", "WriteTxt", "WalkImage", "GetImages"]
+__all__ = ["FILE_SUFFIX", "Walk", "MkdirSimple", "WriteTxt", "WalkImage", "GetImages", 'ReadImageList']
 
 FILE_SUFFIX = ['jpg', 'png', 'jpeg', 'bmp', 'tiff']
 
@@ -27,6 +27,22 @@ def Walk(path, suffix:tuple):
 
 def WalkImage(path):
     return Walk(path, tuple(FILE_SUFFIX))
+
+def ReadImageList(image_path):
+    """Get a list of image paths from a directory or a single image path."""
+    if os.path.isfile(image_path):
+        if image_path.endswith(tuple(FILE_SUFFIX)):
+            return [image_path]
+        else:
+            image_list = []
+            with open(image_path, "r") as file:
+                image_list = file.readlines()
+                image_list = [f.strip() for f in image_list]
+            return image_list
+    elif os.path.isdir(image_path):
+        return WalkImage(image_path)
+    else:
+        raise Exception("Cannot find image_path: {}".format(image_path))
 
 def MkdirSimple(path):
     path_current = os.path.dirname(path) if os.path.splitext(path)[1] else path
