@@ -10,7 +10,7 @@ import cv2
 from rknn.api import RKNN
 import argparse
 from export_onnx.onnxmodel import ONNXModel
-from tools.file import MkdirSimple, ReadImageList
+from utils.file import MkdirSimple, ReadImageList
 
 W = 644
 H = 392
